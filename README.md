@@ -333,6 +333,25 @@ sed -i -e s/OpenCore\.qcow2/OpenCore\-nopicker\.qcow2/ ./Launch-nopicker.sh
 "
 ```
 
+# The 'ideal' startup
+
+```bash
+docker run -it \
+    --device /dev/kvm \
+    -p 50922:10022 \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e "DISPLAY=${DISPLAY:-:0.0}" \
+    -e RAM=4 \
+    -e NETWORKING=vmxnet3 \
+    -e NOPICKER=true \
+    -e GENERATE_SPECIFIC=true \
+    -e GENERATE_UNIQUE=true \
+    -e DEVICE_MODEL="iMacPro1,1" \
+    -e AUDIO_DRIVER=pa,server=unix:/tmp/pulseaudio.socket \
+    -v "/run/user/$(id -u)/pulse/native:/tmp/pulseaudio.socket" \
+    sickcodes/docker-osx:auto
+```
+
 # Requirements: KVM on the host
 Need to turn on hardware virtualization in your BIOS, very easy to do.
 
