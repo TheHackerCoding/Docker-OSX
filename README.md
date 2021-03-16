@@ -341,7 +341,7 @@ docker run -it \
     -p 50922:10022 \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e "DISPLAY=${DISPLAY:-:0.0}" \
-    -e RAM=4 \
+    -e RAM=8 \
     -e NETWORKING=vmxnet3 \
     -e NOPICKER=true \
     -e GENERATE_SPECIFIC=true \
